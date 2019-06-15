@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+RTI Data Distribution Service Deployment
+-->
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/5.3.1/rti_dds_profiles.xsd" version="5.3.1">
+    <!-- types -->
+    <types>
+      <enum name="ShapeFillKind">
+        <enumerator name="SOLID_FILL"/>
+        <enumerator name="TRANSPARENT_FILL"/>
+        <enumerator name="HORIZONTAL_HATCH_FILL"/>
+        <enumerator name="VERTICAL_HATCH_FILL"/>
+      </enum>
+      <struct name="ShapeType">
+        <member name="color" type="string" stringMaxLength="128" key="true"/>
+        <member name="x" type="int32"/>
+        <member name="y" type="int32"/>
+        <member name="shapesize" type="int32"/>
+      </struct>
+      <struct name="ShapeTypeExtended" baseType="ShapeType">
+        <member name="fillKind" type="nonBasic" nonBasicTypeName="ShapeFillKind"/>
+        <member name="angle" type="float32"/>
+      </struct>
+    </types>
+
+    <!-- Qos Library -->
+    <qos_library name="QosLibrary">
+      <qos_profile name="DefaultProfile" is_default_qos="true">
+        <participant_qos>
+          <transport_builtin>
+            <mask>UDPv4 | SHMEM</mask>
+          </transport_builtin>
+          <!-- Turn on monitoring
+                <property>
+                    <value>
+                        <element>
+                            <name>rti.monitor.library</name>
+                            <value>rtimonitoring</value>
+                        </element>
+                        <element>
+                            <name>rti.monitor.create_function_ptr</name>
+                            <value>$(NDDS_MONITOR)</value>
+                        </element>
+                    </value>
+                </property>
+                -->
+          <discovery>
+            <initial_peers>
+              <element>192.168.18.1</element>
+            </initial_peers>
+          </discovery>
+        </participant_qos>
+      </qos_profile>
+    </qos_library>
+
+    <!-- Domain Library -->
+    <domain_library name="MyDomainLibrary">
+      <domain name="ShapeDomain" domain_id="0">
+        <register_type name="ShapeType" kind="dynamicData" type_ref="ShapeType"/>
+        <topic name="Square" register_type_ref="ShapeType"/>
+        <topic name="Circle" register_type_ref="ShapeType"/>
+        <topic name="Triangle" register_type_ref="ShapeType"/>
+      </domain>
+    </domain_library>
+    <!-- Domain Library -->
+    <domain_library name="MyDomainLibraryExt">
+      <domain name="ShapeDomainExt" domain_id="0">
+        <register_type name="ShapeTypeExt" kind="dynamicData" type_ref="ShapeTypeExtended"/>
+        <topic name="Square" register_type_ref="ShapeTypeExt"/>
+        <topic name="Circle" register_type_ref="ShapeTypeExt"/>
+        <topic name="Triangle" register_type_ref="ShapeTypeExt"/>
+      </domain>
+    </domain_library>
+
+    <!-- Participant library -->
+    <domain_participant_library name="SplunkParticipantLibrary">
+      <domain_participant name="SplunkParticipant" domain_ref="MyDomainLibraryExt::ShapeDomainExt">
+        <participant_qos base_name="QosLibrary::DefaultProfile">
+        </participant_qos>
+        <subscriber name="SquareSubscriber">
+          <data_reader name="SquareReader" topic_ref="Square"/>
+        </subscriber>
+        <subscriber name="CircleSubscriber">
+          <data_reader name="CircleReader" topic_ref="Circle"/>
+        </subscriber>
+      </domain_participant>
+      <domain_participant name="BaseParticipant" domain_ref="MyDomainLibrary::ShapeDomain">
+        <subscriber name="TriangleSubscriber">
+          <data_reader name="TriangleReader" topic_ref="Triangle"/>
+        </subscriber>
+      </domain_participant>
+    </domain_participant_library>
+
+</dds>

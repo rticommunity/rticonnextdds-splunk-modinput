@@ -1,0 +1,35 @@
+<scheme>
+  <title>RTI Connext DDS Splunk Modular Input</title>
+  <description>The modular input that inserts Connext DDS data into Splunk</description>
+  <use_external_validation>true</use_external_validation>
+  <streaming_mode>xml</streaming_mode>
+  <use_single_instance>false</use_single_instance>
+  <endpoint>
+    <args>
+      <arg name="participant">
+        <title>Participant</title>
+        <description>The fully qualified domain participant name. I.e. "MyLibrary::MyParticipant"</description>
+      </arg>
+      <arg name="readers">
+        <title>Data Reader List</title>
+        <description>Comma-separated list of fully qualified names of data readers to instantiate. Each data reader is identified using format "SubscriberName::DatareaderName"</description>
+      </arg>
+      <arg name="transform">
+        <title>Transformation Plug-ins</title>
+        <description>Optional comma-separated list of transformation plug-ins that will be invoked (in order) to transform/manipulate/filter the samples received before insertion</description>
+        <required_on_create>false</required_on_create>
+      </arg>
+      <arg name="userxml">
+        <title>User XML</title>
+        <description>Optional full path of the XML file containing the specified profiles. If not provided it will use the default USER_QOS_PROFILES.xml</description>
+        <required_on_create>false</required_on_create>
+      </arg>
+      <arg name="verbose">
+        <title>Verbose</title>
+        <description>Set to TRUE to enable verbosity on splunkd.log</description>
+        <required_on_create>false</required_on_create>
+      </arg>
+    </args>
+  </endpoint>
+</scheme>
+

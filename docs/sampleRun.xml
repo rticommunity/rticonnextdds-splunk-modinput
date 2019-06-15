@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<input>
+  <server_host>localhost.localdomain</server_host>
+  <server_uri>https://127.0.0.1:8089</server_uri>
+  <session_key>oD75D0wleVqEaYXKOTbPV6u^wgPh6M4lpY^xiwQWIrYyJFrXQrZSzoYgpEbMHLFVJDXJRu4oRZfAi0UtFewb4ZWfh9CoIR1blfrZwTlRFU7hhPs_ranIZZVXiF</session_key>
+  <checkpoint_dir>/opt/splunk/var/lib/splunk/modinputs/rticonnextdds_splunk_modinput</checkpoint_dir>
+  <configuration>
+    <stanza name="rticonnextdds_splunk_modinput://TestShapes" app="aplura_malware_app">
+      <param name="disabled">0</param>
+      <param name="host">localhost.localdomain</param>
+      <param name="index">default</param>
+      <param name="participant">SplunkParticipantLibrary::SplunkParticipant</param>
+      <param name="readers">SquareSubscriber::SquareReader, CircleSubscriber::CircleReader</param>
+    </stanza>
+  </configuration>
+</input>
