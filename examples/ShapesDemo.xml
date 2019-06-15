@@ -44,11 +44,6 @@ RTI Data Distribution Service Deployment
                     </value>
                 </property>
                 -->
-          <discovery>
-            <initial_peers>
-              <element>192.168.18.1</element>
-            </initial_peers>
-          </discovery>
         </participant_qos>
       </qos_profile>
     </qos_library>
