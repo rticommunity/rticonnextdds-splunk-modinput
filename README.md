@@ -1,9 +1,9 @@
 # RTI ConnextDDS Splunk Modular Input
 
-A Splunk Modular Input to allow inserting into Splunk data being sent over RTI ConnextDDS
+A Splunk Modular Input to allow inserting into Splunk data being sent over RTI Connext DDS
 
 ## Prerequisites:
-You need to have Splunk and node.js installed on your machine. The modular input uses [RTI ConnextDDS Connector](https://github.com/rticommunity/rticonnextdds-connector). Please refer to Connector's release notes for supported platforms and node.js versions.
+You need to have Splunk and node.js installed on your machine. The modular input uses [RTI Connext DDS Connector](https://github.com/rticommunity/rticonnextdds-connector). Please refer to Connector's release notes for supported platforms and node.js versions.
 
 
 ## Usage:
@@ -82,7 +82,7 @@ You should receive triangle samples in Splunk whenever the triangle change direc
 
 
 ## Important Notes
-The modular input requires an XML file containing the types, the domain definitions and the declaration of all the participant and entities (the data readers) that will receive the DDS samples. Since this modular input is based on RTI ConnextDDS Connector, you must list all the data readers declared in the XML file in the "Data Readers". Failure to do so, will result in a high CPU usage since Connector will still instantiate all the data readers, but the modular input will not read samples from all of them, causing the notification event of "new sample received" to remain in the event loop forever.
+The modular input requires an XML file containing the types, the domain definitions and the declaration of all the participant and entities (the data readers) that will receive the DDS samples. Since this modular input is based on RTI Connext DDS Connector, you must list all the data readers declared in the XML file in the "Data Readers". Failure to do so, will result in a high CPU usage since Connector will still instantiate all the data readers, but the modular input will not read samples from all of them, causing the notification event of "new sample received" to remain in the event loop forever.
 
 Refer to the code if you want to implement new transformation plug-ins.
 
