@@ -1,4 +1,4 @@
-# RTI ConnextDDS Splunk Modular Input
+# RTI Connext DDS Splunk Modular Input
 
 A Splunk Modular Input to allow inserting into Splunk data being sent over RTI Connext DDS
 
